@@ -1,10 +1,7 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.paciente.CredenciaisPaciente;
-import med.voll.api.paciente.DadosParaListagemPaciente;
-import med.voll.api.paciente.Paciente;
-import med.voll.api.paciente.PacienteRepository;
+import med.voll.api.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +24,20 @@ public class PacienteController {
 
     @GetMapping
     public Page<DadosParaListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"})Pageable paginacao) {
-        return repository.findAll(paginacao).map(DadosParaListagemPaciente::new);
+        return repository.findAllByAtivoTrue(paginacao).map(DadosParaListagemPaciente::new);
     }
 
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid CredenciaisPacienteParaPut credenciais) {
+        Paciente paciente = repository.getReferenceById(credenciais.id());
+        paciente.atualizar(credenciais);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void inativar(@PathVariable Long id) {
+        Paciente paciente = repository.getReferenceById(id);
+        paciente.inativar();
+    }
 }
