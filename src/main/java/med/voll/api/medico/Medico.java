@@ -29,12 +29,29 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
+    private Boolean ativo;
+
     public Medico(CredenciaisMedico credenciais) {
+        this.ativo = true;
         this.nome = credenciais.nome();
         this.email = credenciais.email();
         this.telefone = credenciais.telefone();
         this.crm = credenciais.crm();
         this.especialidade = credenciais.especialidade();
         this.endereco = new Endereco(credenciais.endereco());
+    }
+
+    public void atualizarInformacoes(CredenciaisMedicoParaPut credenciais) {
+        if (credenciais.nome() != null) {
+            this.nome = credenciais.nome();
+        }if (credenciais.telefone() != null) {
+            this.telefone = credenciais.telefone();
+        }if (credenciais.endereco() != null) {
+            this.endereco.atualizarInformacoes(credenciais.endereco());
+        }
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }
