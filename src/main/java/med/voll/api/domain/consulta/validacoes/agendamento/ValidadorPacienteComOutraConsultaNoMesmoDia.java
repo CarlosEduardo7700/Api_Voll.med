@@ -1,4 +1,4 @@
-package med.voll.api.domain.consulta.validacoes;
+package med.voll.api.domain.consulta.validacoes.agendamento;
 
 import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.ConsultaRepository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class ValidadorPacienteComOutraConsultaNoMesmoDia implements IValidacao {
+public class ValidadorPacienteComOutraConsultaNoMesmoDia implements IValidadorDeAgendamento {
 
     @Autowired
     private ConsultaRepository repository;
