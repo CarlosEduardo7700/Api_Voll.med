@@ -24,7 +24,7 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity Cadastrar(@RequestBody @Valid CredenciaisMedico credenciais, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity cadastrar(@RequestBody @Valid CredenciaisMedico credenciais, UriComponentsBuilder uriBuilder) {
         Medico medico = new Medico(credenciais);
         repository.save(medico);
 
